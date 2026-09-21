@@ -26,4 +26,4 @@ with gr.Blocks(title="Demo Clase 4") as demo:
   )
 
 if __name__ == "__main__":
-  demo.launch()
+  demo.launch(share=True)
