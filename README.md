@@ -1,5 +1,5 @@
 ---
-title: Seminario Actualizacion Clase 2
+title: Seminario Actualización Clase
 emoji: 📊
 colorFrom: purple
 colorTo: yellow
