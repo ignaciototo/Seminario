@@ -1,8 +1,8 @@
 # Clase 05: Publicación y Comparativa de Deploys
 
 ### Links de las aplicaciones
-- **Gradio en Render:** [TU_LINK_DE_RENDER](https://tu-app.onrender.com)
-- **Streamlit Community Cloud:** [TU_LINK_DE_STREAMLIT](https://tu-app.streamlit.app)
+- **Gradio en Render:** https://seminario-1-8xxw.onrender.com/
+- **Streamlit Community Cloud:** https://seminario-dyqmh2pdk6e2czttnyrxry.streamlit.app/
 
 ### Diferencias encontradas en el despliegue
 - **Flujo de ejecución:** Gradio maneja el ciclo de vida mediante funciones y eventos explícitos (`btn.click`), mientras que Streamlit reejecuta el script completo de arriba a abajo ante cada interacción.
