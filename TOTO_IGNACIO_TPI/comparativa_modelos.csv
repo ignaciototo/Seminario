@@ -1,0 +1,25 @@
+Modelo,Consulta,Esperada,Predicha,Acierto,Confianza,Segunda Opción,Latencia (s)
+BERT-XNLI (110M),Estoy recepcionando un pale que tiene rotura. Como lo registro?,Recepción de Pallets,Recepción de Pallets,True,45.7,Despacho de pedidos (14.7%),0.41
+BERT-XNLI (110M),Los pallets que estamos descargando en la rece están fuera de estandar. Tengo que cobrar el retrabajo al proveedor. Que función de la PDA era?,Recepción de Pallets,Recepción de Pallets,True,33.3,Almacenamiento de pallets (20.4%),0.5
+BERT-XNLI (110M),El plan quedó chico. Necesito que envien más volumen para replnificar. Sino van a quedar los camiones por la mitad.,Planificación de viajes,Expedición de Camiones,False,35.8,Despacho de pedidos (16.7%),0.38
+BERT-XNLI (110M),"Terminé de descargar y la PDA me manda a guardar el pallet en el pasillo 14, pero la altura del hueco no da para este bulto. Como pido reubicarlo?",Almacenamiento de pallets,Almacenamiento de pallets,True,32.5,Despacho de pedidos (17.8%),0.61
+BERT-XNLI (110M),En el Hueco no está el PLU que me dice la PDA que tengo que pickear. Como registro la incidencia?,Preparación de Pedidos,Despacho de pedidos,False,19.3,Preparación de Pedidos (18.8%),0.5
+BERT-XNLI (110M),La repo de mercadería me envío a reponer a un hueco de picking que está lleno.,Preparación de Pedidos,Despacho de pedidos,False,26.4,Recepción de Pallets (14.3%),0.35
+BERT-XNLI (110M),Que función de la PDA es la que tengo que acceder para consolidar pallets pa subir al camión?,Expedición de Camiones,Expedición de Camiones,True,29.4,Recepción de Pallets (20.6%),0.38
+BERT-XNLI (110M),El camión está lleno pero la HDR tiene más pallets.,Expedición de Camiones,Expedición de Camiones,True,24.1,Almacenamiento de pallets (21.1%),0.31
+BERT-XNLI (110M),Estoy en el andén. Me falta cerrar el camión para que salga a la calle. Pero no se como se hace.,Despacho de pedidos,Expedición de Camiones,False,31.3,Despacho de pedidos (23.3%),0.35
+BERT-XNLI (110M),Desde control de gestión estamos haciendo la recorrida de control. Detectamos diferencias entre el físico y el sistema. Tengo 3 bultos faltantes del PLU 42222,Control de Inventario,Control de Inventario,True,35.0,Despacho de pedidos (23.1%),0.48
+BERT-XNLI (110M),La PDA quiere consolidar pales de pollo con veneno para subirlos a un camión. Eso está mal.,Despacho de pedidos,Preparación de Pedidos,False,23.8,Expedición de Camiones (19.5%),0.35
+BERT-XNLI (110M),La PDA está tirando error de conexión al WIFI.,Sistemas y Soporte WMS,Despacho de pedidos,False,26.9,Control de Inventario (21.0%),0.3
+SELECTRA-Medium (38M),Estoy recepcionando un pale que tiene rotura. Como lo registro?,Recepción de Pallets,Recepción de Pallets,True,63.3,Expedición de Camiones (11.7%),0.18
+SELECTRA-Medium (38M),Los pallets que estamos descargando en la rece están fuera de estandar. Tengo que cobrar el retrabajo al proveedor. Que función de la PDA era?,Recepción de Pallets,Recepción de Pallets,True,41.2,Expedición de Camiones (22.9%),0.15
+SELECTRA-Medium (38M),El plan quedó chico. Necesito que envien más volumen para replnificar. Sino van a quedar los camiones por la mitad.,Planificación de viajes,Expedición de Camiones,False,42.7,Despacho de pedidos (23.3%),0.14
+SELECTRA-Medium (38M),"Terminé de descargar y la PDA me manda a guardar el pallet en el pasillo 14, pero la altura del hueco no da para este bulto. Como pido reubicarlo?",Almacenamiento de pallets,Almacenamiento de pallets,True,59.3,Recepción de Pallets (23.8%),0.19
+SELECTRA-Medium (38M),En el Hueco no está el PLU que me dice la PDA que tengo que pickear. Como registro la incidencia?,Preparación de Pedidos,Despacho de pedidos,False,30.4,Recepción de Pallets (18.5%),0.15
+SELECTRA-Medium (38M),La repo de mercadería me envío a reponer a un hueco de picking que está lleno.,Preparación de Pedidos,Despacho de pedidos,False,49.2,Recepción de Pallets (18.0%),0.13
+SELECTRA-Medium (38M),Que función de la PDA es la que tengo que acceder para consolidar pallets pa subir al camión?,Expedición de Camiones,Recepción de Pallets,False,35.6,Almacenamiento de pallets (34.2%),0.15
+SELECTRA-Medium (38M),El camión está lleno pero la HDR tiene más pallets.,Expedición de Camiones,Recepción de Pallets,False,38.0,Expedición de Camiones (20.8%),0.14
+SELECTRA-Medium (38M),Estoy en el andén. Me falta cerrar el camión para que salga a la calle. Pero no se como se hace.,Despacho de pedidos,Expedición de Camiones,False,54.4,Recepción de Pallets (15.2%),0.16
+SELECTRA-Medium (38M),Desde control de gestión estamos haciendo la recorrida de control. Detectamos diferencias entre el físico y el sistema. Tengo 3 bultos faltantes del PLU 42222,Control de Inventario,Sistemas y Soporte WMS,False,32.4,Recepción de Pallets (26.7%),0.18
+SELECTRA-Medium (38M),La PDA quiere consolidar pales de pollo con veneno para subirlos a un camión. Eso está mal.,Despacho de pedidos,Expedición de Camiones,False,68.7,Recepción de Pallets (12.7%),0.15
+SELECTRA-Medium (38M),La PDA está tirando error de conexión al WIFI.,Sistemas y Soporte WMS,Sistemas y Soporte WMS,True,36.6,Recepción de Pallets (15.5%),0.13
