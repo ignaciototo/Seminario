@@ -5,7 +5,8 @@ import streamlit as st
 
 from PIL import Image
 try:
-    logo_img = Image.open("logo.png")
+    logo_path = os.path.join(os.path.dirname(__file__), "logo.png")
+    logo_img = Image.open(logo_path)
 except FileNotFoundError:
     logo_img = "📦"
 
