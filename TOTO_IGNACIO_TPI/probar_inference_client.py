@@ -10,8 +10,14 @@ if os.path.exists(".env"):
             if line.startswith("HF_TOKEN="):
                 token = line.strip().split("=", 1)[1]
 
-if not token:
-    token = os.getenv("HF_TOKEN")
+if not token or token == "hf_tu_token_aqui":
+    print("=" * 60)
+    print("⚠️  AVISO: No se encontró un token válido de Hugging Face.")
+    print("Para probar la API de inferencia externa:")
+    print("1. Renombra .env.example a .env")
+    print("2. En .env, ingresa tu token personal (https://huggingface.co/settings/tokens)")
+    print("=" * 60)
+    exit(0)
 
 print(f"Usando token: {token[:6]}...{token[-4:]}\n")
 

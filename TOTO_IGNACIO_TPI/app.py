@@ -3,12 +3,18 @@ import time
 import pandas as pd
 import streamlit as st
 
+from PIL import Image
+try:
+    logo_img = Image.open("logo.png")
+except FileNotFoundError:
+    logo_img = "📦"
+
 # -----------------------------------------------------------------------------
 # 1. Configuración de la Página
 # -----------------------------------------------------------------------------
 st.set_page_config(
     page_title="Asistente WMS — Gestión Inteligente",
-    page_icon="📦",
+    page_icon=logo_img,
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -43,7 +49,7 @@ class WmsClassifierService:
 # -----------------------------------------------------------------------------
 # 3. Cache del Modelo
 # -----------------------------------------------------------------------------
-@st.cache_resource(show_spinner="Iniciando modelo NLP liviano (SELECTRA Medium 163 MB)...")
+@st.cache_resource(show_spinner="Iniciando modelo NLP liviano (SELECTRA Medium)...")
 def load_classifier_service() -> WmsClassifierService:
     """Instancia y cachea el servicio de clasificación en memoria."""
     return WmsClassifierService(model_name="Recognai/zeroshot_selectra_medium")
@@ -109,7 +115,7 @@ EJEMPLOS_WMS = [
     "Que función de la PDA es la que tengo que acceder para consolidar pallets pa subir al camión?",
     "El camión está lleno pero la HDR tiene más pallets.",
     "Estoy en el andén. Me falta cerrar el camión para que salga a la calle. Pero no se como se hace.",
-    "Desde control de gestión estamos haciendo la recorrida de control. Detectamos diferencias entre el físico y el sistema. Tengo 3 bultos faltantes del PLU 42222",
+    "En el controlde rutina, detectamos diferencias entre el stock físico y lo que dice el wms. Me faltan 3 bultos del PLU 42222 en el rack",
     "La PDA quiere consolidar pales de pollo con veneno para subirlos a un camión. Eso está mal.",
     "La PDA está tirando error de conexión al WIFI."
 ]
@@ -122,8 +128,7 @@ def main() -> None:
     with st.sidebar:
 
         st.subheader("⚙️ Modelo en Ejecución")
-        st.success("🤖 **SELECTRA-Medium (38M)**\n\n*Zero-Shot NLI en Español (~163 MB)*")
-        st.caption("Arquitectura optimizada para baja latencia y consumo de memoria < 300 MB de RAM.")
+        st.success("🤖 **SELECTRA-Medium**\n\n*Zero-Shot NLI en Español*")
 
         st.divider()
         st.subheader("🏷️ Áreas Operativas Configuradas")
@@ -134,12 +139,19 @@ def main() -> None:
         )
 
         st.divider()
-        st.info("💡 Usá el selector de ejemplos de consultas, o ingresar consultas manualmente.")
+        st.info("💡 Usá el selector de ejemplos de consultas, o ingresa consultas manualmente.")
 
-    st.title("📦 Asistente de Mesa de Ayuda WMS")
-    st.markdown(
-        "##### Gestión inteligente de consultas y derivación automática de dudas operativas"
-    )
+    col_logo, col_title = st.columns([1, 6], vertical_alignment="center")
+    with col_logo:
+        if isinstance(logo_img, str):
+            st.title("📦")
+        else:
+            st.image(logo_img, use_container_width=True)
+    with col_title:
+        st.title("Asistente de Mesa de Ayuda WMS")
+        st.markdown(
+            "##### Gestión y derivación automática de dudas operativas"
+        )
 
     st.subheader("1. Ingreso de la Consulta Operativa")
 
@@ -170,7 +182,7 @@ def main() -> None:
             st.error("⚠️ Debés seleccionar al menos 2 áreas operativas en la barra lateral para comparar.")
             return
 
-        with st.status("🧠 Procesando consulta mediante NLP...", expanded=True) as status:
+        with st.status("🧠 Procesando consulta...", expanded=True) as status:
             st.write("Cargando modelo en memoria y tokenizando texto...")
             classifier_service = load_classifier_service()
             time.sleep(0.4)
@@ -181,7 +193,7 @@ def main() -> None:
             latencia = time.time() - t_inicio
             
             time.sleep(0.4)
-            status.update(label="¡Triaje completado con éxito!", state="complete", expanded=False)
+            status.update(label="Análisis finalizado", state="complete", expanded=False)
 
         # Procesamiento de resultados
         etiquetas = resultado["labels"]
@@ -194,7 +206,7 @@ def main() -> None:
         segunda_confianza = probabilidades[1] * 100
 
         st.divider()
-        st.subheader("2. Resultado del Triaje y Derivación")
+        st.subheader("2. Derivación Sugerida")
 
         # Tarjeta principal con recomendación de derivación
         info_area = CONTACT_DIRECTORY.get(area_ganadora, {
@@ -205,12 +217,12 @@ def main() -> None:
         res_col1, res_col2 = st.columns([1.5, 1])
 
         with res_col1:
-            st.success(f"🎯 **Área Sugerida:** {area_ganadora} ({confianza_ganadora:.1f}%)")
+            st.success(f"🎯 **Área:** {area_ganadora} ({confianza_ganadora:.1f}%)")
             st.markdown(f"**Segunda opción:** {segunda_area} ({segunda_confianza:.1f}%)")
             st.divider()
             st.markdown(f"**👤 Referente Asignado:** {info_area['referente']}")
-            st.markdown(f"**💬 Canal de Contacto (Slack/Teams):** `{info_area['canal']}`")
-            st.caption(f"⚡ Inferencia resuelta en **{latencia*1000:.0f} ms** en CPU.")
+            st.markdown(f"**💬 Canal de Contacto (Teams/Discord):** `{info_area['canal']}`")
+            st.caption(f"⚡ Inferencia resuelta en **{latencia*1000:.0f} ms**.")
 
         with res_col2:
             st.markdown("#### Distribución de Probabilidades")

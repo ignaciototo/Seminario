@@ -41,7 +41,7 @@ questions = [
     ("Estoy en el andén. Me falta cerrar el camión para que salga a la calle. Pero no se como se hace.", "Despacho de pedidos"),
     
     # Control de Inventario
-    ("Desde control de gestión estamos haciendo la recorrida de control. Detectamos diferencias entre el físico y el sistema. Tengo 3 bultos faltantes del PLU 42222", "Control de Inventario"),
+    ("En el controlde rutina, detectamos diferencias entre el stock físico y lo que dice el wms. Me faltan 3 bultos del PLU 42222 en el rack", "Control de Inventario"),
     
     # Despacho de pedidos
     ("La PDA quiere consolidar pales de pollo con veneno para subirlos a un camión. Eso está mal.", "Despacho de pedidos"),
