@@ -53,11 +53,16 @@ Se seleccionó **`Recognai/zeroshot_selectra_medium`** para la aplicación web p
 
 ## 💻 3. Cómo Ejecutar la Aplicación Localmente
 
+### Requisitos Previos
+
+* **Python 3.10 o superior** (probado y verificado en Python 3.13).
+* Conexión a internet en el primer inicio para descargar los pesos del modelo.
+
 ### Paso 1: Clonar el repositorio
 
 ```bash
-git clone <URL_DE_TU_REPOSITORIO>
-cd TOTO_IGNACIO_TPI
+git clone https://github.com/ignaciototo/Seminario.git
+cd Seminario/TOTO_IGNACIO_TPI
 ```
 
 ### Paso 2: Crear y activar entorno virtual
@@ -66,6 +71,12 @@ cd TOTO_IGNACIO_TPI
 # En Windows (PowerShell):
 python -m venv .venv
 .venv\Scripts\Activate.ps1
+# Nota: Si PowerShell restringe la ejecución de scripts, ejecutar previamente:
+# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+
+# En Windows (Símbolo del sistema / cmd):
+python -m venv .venv
+.venv\Scripts\activate.bat
 
 # En Linux / macOS:
 python3 -m venv .venv
@@ -87,7 +98,9 @@ streamlit run app.py
 La aplicación se abrirá automáticamente en tu navegador en:  
 👉 **`http://localhost:8501`**
 
-> ℹ️ **Nota:** La aplicación (`app.py`), el notebook y las pruebas locales **no requieren token de HF**. Para ejecutar `probar_inference_client.py` para probar la API serverless de Hugging Face, renombra `.env.example` a `.env` e ingresa tu token que puedes generar en **<https://huggingface.co/settings/tokens>**.
+> ⏳ **Primera ejecución:** En el primer arranque, la aplicación descargará automáticamente los pesos de `SELECTRA-Medium` (~163 MB) desde Hugging Face Hub. Esto puede tomar unos 15 a 30 segundos según tu conexión; las ejecuciones posteriores son instantáneas.
+
+> ℹ️ **Nota sobre tokens:** Ni la aplicación (`app.py`), ni el notebook ni las pruebas locales requieren token de Hugging Face. Si deseas ejecutar `probar_inference_client.py` para probar la API serverless externa de Hugging Face, renombra `.env.example` a `.env` e ingresa tu token generado en **<https://huggingface.co/settings/tokens>**.
 
 ---
 
@@ -98,6 +111,7 @@ TOTO_IGNACIO_TPI/
 ├── app.py                      # Aplicación web interactiva en Streamlit
 ├── requirements.txt            # Dependencias del proyecto
 ├── README.md                   # Documentación completa y guía de uso
+├── logo.png                    # Logotipo e identidad visual del asistente WMS
 ├── .env.example                # Plantilla de variables de entorno (optativo para API)
 ├── TPI_Toto_Ignacio.ipynb      # Notebook Jupyter con el benchmark y análisis
 ├── comparativa_modelos.csv     # Resultados experimentales de ambos modelos
@@ -107,7 +121,7 @@ TOTO_IGNACIO_TPI/
 
 ---
 
-## 🌐 5. Deploy en la Nube (Streamlit Community Cloud)
+## 🌐 5. Deploy en Streamlit Community Cloud
 
 * **Enlace a la Aplicación en Vivo:** `https://seminario.streamlit.app/`
 * **Enlace al Repositorio en GitHub:** `https://github.com/ignaciototo/Seminario/tree/main/TOTO_IGNACIO_TPI`
