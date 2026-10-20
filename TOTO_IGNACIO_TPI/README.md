@@ -17,7 +17,7 @@ En el marco de la migración de un sistema de gestión de depósitos (**WMS**) d
 Durante las primeras semanas posteriores a la implementación productiva:
 
 * Los **Key Users** se ven saturados respondiendo dudas operativas básicas.
-* Los operarios dispersan las consultas enviando la misma pregunta a a través de múltiples canales (WhatsApp, Teams, radio) generando demoras y desorganización.
+* Los operarios dispersan las consultas enviando la misma pregunta a través de múltiples canales (WhatsApp, Teams, radio) generando demoras y desorganización.
 
 Se busca reducir esta carga de trabajo con un asistente virtual que pueda orientar o derivar las consultas únicamente al canal y personas adecuadas.
 
