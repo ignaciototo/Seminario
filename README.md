@@ -9,4 +9,5 @@ Repositorio de actividades prácticas y proyectos integradores.
 - **Clase 04:** Interfaces con Gradio Blocks.
 - **Clase 05:** Publicación en servidores web (Render y Streamlit Cloud).
 - **Clase 10:** El camino del entrenamiento: del dataset al modelo exportado.
+- **Clase 11:** Cuestionario 4 modelos
 - **Trabajo Práctico Inidividual:** Clasificador de consultas a Soporte.
