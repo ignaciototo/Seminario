@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CardioCheck | Predicción de Riesgo Cardiovascular</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <img src="logo.svg" alt="CardioCheck AI Logo" class="brand-logo">
+        <div>
+          <h1>CardioCheck AI</h1>
+          <p class="subtitle">Evaluación de Riesgo Coronario Ambulatorio con Machine Learning</p>
+        </div>
+      </div>
+      <div class="api-status-badge" id="apiStatusBadge">
+        <span class="status-dot"></span>
+        <span id="apiStatusText">Comprobando API...</span>
+      </div>
+    </header>
+
+    <!-- Configuración opcional de URL de la API -->
+    <div class="api-config-bar">
+      <label for="apiUrlInput">URL del Backend:</label>
+      <input type="text" id="apiUrlInput" value="http://localhost:8000" placeholder="https://tu-api.onrender.com">
+      <button type="button" id="btnTestApi" class="btn-secondary">Test /health</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-grid">
+      <!-- Columna Izquierda: Formulario -->
+      <section class="card form-card">
+        <div class="card-header">
+          <h2>Datos Clínicos del Paciente</h2>
+          <div class="preset-buttons">
+            <button type="button" class="btn-chip" id="btnPresetHealthy">💡 Cargar Sano</button>
+            <button type="button" class="btn-chip" id="btnPresetRisk">⚠️ Cargar Riesgo</button>
+          </div>
+        </div>
+
+        <form id="predictionForm">
+          <div class="form-grid">
+            <!-- Edad -->
+            <div class="form-group">
+              <label for="age">Edad (años)</label>
+              <input type="number" id="age" name="age" min="18" max="100" required placeholder="Ej: 54">
+            </div>
+
+            <!-- Sexo -->
+            <div class="form-group">
+              <label for="sex">Sexo Biológico</label>
+              <select id="sex" name="sex" required>
+                <option value="1">Masculino</option>
+                <option value="0">Femenino</option>
+              </select>
+            </div>
+
+            <!-- Tipo de Dolor de Pecho -->
+            <div class="form-group full-width">
+              <label for="chest">Tipo de Dolor Torácico (Chest Pain Type)</label>
+              <select id="chest" name="chest" required>
+                <option value="1">1 - Angina típica (dolor opresivo retroesternal)</option>
+                <option value="2">2 - Angina atípica</option>
+                <option value="3">3 - Dolor torácico no anginoso</option>
+                <option value="4" selected>4 - Asintomático</option>
+              </select>
+            </div>
+
+            <!-- Presión Arterial -->
+            <div class="form-group">
+              <label for="resting_blood_pressure">Presión en Reposo (mm Hg)</label>
+              <input type="number" id="resting_blood_pressure" name="resting_blood_pressure" min="70" max="220" required placeholder="Ej: 130">
+              <small class="hint">Presión sistólica en reposo</small>
+            </div>
+
+            <!-- Colesterol -->
+            <div class="form-group">
+              <label for="serum_cholestoral">Colesterol Sérico (mg/dl)</label>
+              <input type="number" id="serum_cholestoral" name="serum_cholestoral" min="100" max="600" required placeholder="Ej: 240">
+              <small class="hint">Colesterol total en sangre</small>
+            </div>
+
+            <!-- Frecuencia Cardíaca Máxima -->
+            <div class="form-group">
+              <label for="maximum_heart_rate_achieved">Frec. Cardíaca Máx. (lpm)</label>
+              <input type="number" id="maximum_heart_rate_achieved" name="maximum_heart_rate_achieved" min="60" max="230" required placeholder="Ej: 150">
+              <small class="hint">Alcanzada en esfuerzo</small>
+            </div>
+
+            <!-- Angina por ejercicio -->
+            <div class="form-group">
+              <label for="exercise_induced_angina">Angina por Ejercicio</label>
+              <select id="exercise_induced_angina" name="exercise_induced_angina" required>
+                <option value="0">No presenta dolor</option>
+                <option value="1">Sí presenta dolor</option>
+              </select>
+              <small class="hint">¿Sufre dolor al ejercitar?</small>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="btnSubmit" class="btn-primary">
+              <span id="btnText">Realizar Predicción</span>
+              <div class="spinner hidden" id="spinner"></div>
+            </button>
+            <button type="reset" class="btn-outline">Limpiar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Columna Derecha: Resultados y Diagnóstico -->
+      <section class="card result-card">
+        <h2>Resultado del Análisis</h2>
+
+        <!-- Estado Inicial -->
+        <div id="initialState" class="result-placeholder">
+          <span class="placeholder-icon">📋</span>
+          <p>Completá el formulario y presioná <strong>"Realizar Predicción"</strong> para evaluar el riesgo coronario.</p>
+        </div>
+
+        <!-- Alerta de Error -->
+        <div id="errorAlert" class="alert alert-error hidden">
+          <div class="alert-icon">⚠️</div>
+          <div>
+            <h4 id="errorTitle">Error de comunicación</h4>
+            <p id="errorMessage">No se pudo contactar con la API.</p>
+          </div>
+        </div>
+
+        <!-- Tarjeta de Resultado -->
+        <div id="resultBox" class="result-content hidden">
+          <div class="badge-container">
+            <span id="riskBadge" class="badge">BAJO RIESGO</span>
+          </div>
+
+          <div class="probability-section">
+            <div class="prob-header">
+              <span>Probabilidad Estimada de Riesgo:</span>
+              <strong id="probValue">0%</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div id="progressBar" class="progress-bar-fill"></div>
+            </div>
+          </div>
+
+          <div class="result-details">
+            <p id="resultDiagnosis">Diagnóstico sugerido...</p>
+            <div class="advice-box" id="adviceBox">
+              <strong>Recomendación:</strong>
+              <p id="adviceText">Texto de recomendación médica.</p>
+            </div>
+          </div>
+
+          <!-- JSON de respuesta de la API -->
+          <details class="json-details">
+            <summary>Ver JSON de respuesta del backend</summary>
+            <pre><code id="jsonResponse">{}</code></pre>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <img src="ifts18_logo.jpg" alt="IFTS 18 Logo" class="footer-logo">
+        <div class="footer-text">
+          <p><strong>IFTS N.º 18</strong> · Tecnicatura Superior en Ciencia de Datos e IA · Seminario de Actualización</p>
+          <p>Modelo: Regresión Logística (Pipeline scikit-learn) · Backend: FastAPI · Frontend: HTML + CSS + JS</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
