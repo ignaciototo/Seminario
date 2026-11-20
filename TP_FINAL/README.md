@@ -9,6 +9,7 @@ Proyecto final desarrollado para la **Tecnicatura Superior en Ciencia de Datos e
 ## 📋 Tabla de Contenidos
 
 - [Descripción General](#-descripción-general)
+- [Dataset Utilizado (Heart Statlog)](#-dataset-utilizado-heart-statlog)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
 - [Variables Clínicas (Features)](#-variables-clínicas-features)
 - [Requisitos Previos](#-requisitos-previos)
@@ -35,6 +36,21 @@ El sistema consta de:
 1. **Modelo Predictivo:** Pipeline de scikit-learn con preprocesamiento y **Regresión Logística**, entrenado sobre el dataset internacional *Heart Statlog* (OpenML ID 53 / UCI ML Repository).
 2. **Backend API:** Servicio RESTful desarrollado en **FastAPI**, validado con **Pydantic** y servido con **Uvicorn**, capaz de realizar inferencias en tiempo real y devolver la probabilidad estimada junto a un diagnóstico orientativo.
 3. **Frontend Web:** Aplicación web responsiva (HTML5, CSS3, JavaScript Vanilla) con selector dinámico de backend, presets rápidos de prueba, indicador de estado de conexión (`/health`) y recomendaciones médicas preventivas.
+
+---
+
+## 📊 Dataset Utilizado (Heart Statlog)
+
+El modelo fue entrenado y validado utilizando el dataset clínico **Heart Statlog**, obtenido desde el repositorio internacional de **OpenML (Data ID: 53)** y derivado originalmente del clásico repositorio de **UCI Machine Learning Repository**.
+
+### Características del Dataset:
+- **Total de observaciones:** 270 pacientes.
+- **Valores nulos/faltantes:** 0 (dataset completamente limpio e imputado).
+- **Variable objetivo (*Target*):** Diagnóstico de enfermedad cardíaca:
+  - `0`: Ausencia de cardiopatía / Bajo riesgo.
+  - `1`: Presencia de afección cardíaca significativa / Riesgo detectado.
+- **Criterio de reducción de variables (13 ➔ 7):**  
+  El dataset original posee 13 atributos. Para el desarrollo de esta aplicación ambulatoria y de triaje rápido, se descartaron variables que exigen estudios invasivos o de alta complejidad hospitalaria (como la fluoroscopía de vasos coronarios `number_of_major_vessels`, la gammagrafía `thal` o electrocardiogramas avanzados de esfuerzo `oldpeak`/`slope`). Se seleccionaron **7 variables no invasivas** medibles en cualquier consulta médica estándar o guardia ambulatoria.
 
 ---
 
@@ -228,11 +244,11 @@ Recibe los datos del paciente y devuelve la inferencia del modelo.
 El proceso completo de análisis exploratorio, ingeniería de datos, experimentación y validación se encuentra en `notebook/entrenamiento.ipynb`:
 
 1. **Dataset:** Statlog Heart (OpenML ID 53), 270 pacientes sin valores nulos.
-2. **Estrategia de Partición:** 80% entrenamiento / 20% prueba con partición estratificada (`stratify=y`).
-3. **Modelos comparados:** Regresión Logística, Random Forest y K-Nearest Neighbors evaluados con validación cruzada enfocada en métricas de **Recall (Sensibilidad)** y **ROC-AUC** para minimizar falsos negativos en el ámbito de la salud.
+2. **Estrategia de Partición:** 80% entrenamiento / 20% prueba independiente con partición estratificada (`stratify=y`).
+3. **Validación Cruzada en 5 Pliegues (5-Fold Stratified CV):** Se implementó `StratifiedKFold(n_splits=5, shuffle=True, random_state=42)` sobre el conjunto de entrenamiento para comparar objetivamente los pipelines (Regresión Logística vs. Random Forest) evaluando **Accuracy** y **ROC-AUC** en cada iteración y evitando el sobreajuste (*overfitting*).
 4. **Resultados del Modelo Final (Regresión Logística):**
    - **Accuracy en Test:** ~77.8%
-   - **ROC-AUC:** > 0.82
+   - **ROC-AUC en Test:** > 0.82
 5. **Persistencia:** Guardado mediante `joblib.dump` en `app/modelo/modelo.joblib`.
 
 Para reproducirlo:
