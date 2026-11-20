@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div class="container">
     <!-- Header -->
@@ -30,8 +32,9 @@
     <!-- Configuración opcional de URL de la API -->
     <div class="api-config-bar">
       <label for="apiUrlInput">URL del Backend:</label>
-      <input type="text" id="apiUrlInput" value="http://localhost:8000" placeholder="https://tu-api.onrender.com">
-      <button type="button" id="btnTestApi" class="btn-secondary">Test /health</button>
+      <input type="text" id="apiUrlInput" value="http://localhost:8000"
+        placeholder="https://cardiocheck-kila.onrender.com/">
+      <button type="button" id="btnTestApi" class="btn-secondary">Test</button>
     </div>
 
     <!-- Main Content -->
@@ -77,21 +80,24 @@
             <!-- Presión Arterial -->
             <div class="form-group">
               <label for="resting_blood_pressure">Presión en Reposo (mm Hg)</label>
-              <input type="number" id="resting_blood_pressure" name="resting_blood_pressure" min="70" max="220" required placeholder="Ej: 130">
+              <input type="number" id="resting_blood_pressure" name="resting_blood_pressure" min="70" max="220" required
+                placeholder="Ej: 130">
               <small class="hint">Presión sistólica en reposo</small>
             </div>
 
             <!-- Colesterol -->
             <div class="form-group">
               <label for="serum_cholestoral">Colesterol Sérico (mg/dl)</label>
-              <input type="number" id="serum_cholestoral" name="serum_cholestoral" min="100" max="600" required placeholder="Ej: 240">
+              <input type="number" id="serum_cholestoral" name="serum_cholestoral" min="100" max="600" required
+                placeholder="Ej: 240">
               <small class="hint">Colesterol total en sangre</small>
             </div>
 
             <!-- Frecuencia Cardíaca Máxima -->
             <div class="form-group">
               <label for="maximum_heart_rate_achieved">Frec. Cardíaca Máx. (lpm)</label>
-              <input type="number" id="maximum_heart_rate_achieved" name="maximum_heart_rate_achieved" min="60" max="230" required placeholder="Ej: 150">
+              <input type="number" id="maximum_heart_rate_achieved" name="maximum_heart_rate_achieved" min="60"
+                max="230" required placeholder="Ej: 150">
               <small class="hint">Alcanzada en esfuerzo</small>
             </div>
 
@@ -123,7 +129,8 @@
         <!-- Estado Inicial -->
         <div id="initialState" class="result-placeholder">
           <span class="placeholder-icon">📋</span>
-          <p>Completá el formulario y presioná <strong>"Realizar Predicción"</strong> para evaluar el riesgo coronario.</p>
+          <p>Completá el formulario y presioná <strong>"Realizar Predicción"</strong> para evaluar el riesgo coronario.
+          </p>
         </div>
 
         <!-- Alerta de Error -->
@@ -173,7 +180,8 @@
       <div class="footer-content">
         <img src="ifts18_logo.jpg" alt="IFTS 18 Logo" class="footer-logo">
         <div class="footer-text">
-          <p><strong>IFTS N.º 18</strong> · Tecnicatura Superior en Ciencia de Datos e IA · Seminario de Actualización</p>
+          <p><strong>IFTS N.º 18</strong> · Tecnicatura Superior en Ciencia de Datos e IA · Seminario de Actualización
+          </p>
           <p>Modelo: Regresión Logística (Pipeline scikit-learn) · Backend: FastAPI · Frontend: HTML + CSS + JS</p>
         </div>
       </div>
@@ -182,4 +190,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>
