@@ -4,3 +4,6 @@
 __pycache__/
 *.pyc
 .gradio/
+hugging_face_models/
+ifts18-practica-model-cards/
+proyecto_integrador/
